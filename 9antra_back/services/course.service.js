@@ -18,9 +18,8 @@ exports.getCourse = async (id) => {
 }
 
 exports.deleteCourse = async (id) => {
-    const course = await this.getCourse(id)
-    this.deleteImage(course.image)
-    await coursesModel.deleteOne({ _id: id })
+    await this.deleteImageById(id)
+    const course = await coursesModel.deleteOne({ _id: id })
     return course
 }
 
@@ -33,8 +32,10 @@ exports.updateCourse = async (id, course) => {
     return updatedCourse
 }
 
-exports.deleteImage = (url) => {
-    const oldImagePath = path.join(__dirname, '..', 'public', url);
+exports.deleteImageById = async (id) => {
+    const course = await this.getCourse(id)
+    console.log(course.image)
+    const oldImagePath = path.join(__dirname, '..', 'public', course.image);
     if (fs.existsSync(oldImagePath)) {
         fs.unlinkSync(oldImagePath);
     }

@@ -44,7 +44,7 @@ function EditCourse() {
         e.preventDefault();
 
         if (!course.title || !course.price || !course.image) {
-            alert('All fields are required!');
+            toast.warning('All fields are required!');
             return;
         }
 

@@ -1,4 +1,3 @@
-const { deleteImage } = require("../services/course.service");
 const courseService = require("../services/course.service");
 
 async function createCourse(req, res, next) {
@@ -53,7 +52,7 @@ async function updateCourse(req, res, next) {
                 : req.body.image
         };
         if(req.file) {
-            deleteImage(req.body.image)
+            courseService.deleteImageById(req.body._id)
         }
         const course = await courseService.updateCourse(id, updatedCourse);
         res.json(course)
